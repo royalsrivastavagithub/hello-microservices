@@ -1,4 +1,4 @@
-module github.com/royalsrivastavagithub/hello-microservices
+module github.com/royalsrivastavagithub/hello-microservices/pb
 
 go 1.24.5
 
