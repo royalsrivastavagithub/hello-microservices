@@ -1,0 +1,18 @@
+FROM golang:alpine AS builder
+
+WORKDIR /go/src/hello-microservices
+
+COPY . /go/src/hello-microservices
+
+RUN go build -o hello-service services/hello-service/main.go
+
+FROM alpine
+
+WORKDIR /app
+
+COPY --from=builder /go/src/hello-microservices/hello-service .
+
+EXPOSE 50051
+
+CMD ["./hello-service"]
+

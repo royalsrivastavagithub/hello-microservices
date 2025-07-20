@@ -1,0 +1,18 @@
+FROM golang:alpine AS builder
+
+WORKDIR /go/src/hello-microservices
+
+COPY . /go/src/hello-microservices
+
+RUN go build -o gateway-service services/gateway-service/main.go
+
+FROM alpine
+
+WORKDIR /app
+
+COPY --from=builder /go/src/hello-microservices/gateway-service .
+
+EXPOSE 8080
+
+CMD ["./gateway-service", "--hello-service-port", "50051"]
+
